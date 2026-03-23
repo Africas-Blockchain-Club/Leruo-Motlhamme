@@ -38,5 +38,6 @@ To interact with the contracts:
 ## Running the Server
 1. Move to the frontend folder
 2. Run `npm run dev`
+```
 
-## 7-Ball Lottery 
+## 7-Ball Lottery

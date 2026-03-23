@@ -9,12 +9,16 @@
     },
     "devDependencies": {
         "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+        "autoprefixer": "^10.4.27",
         "dotenv": "^16.4.5",
-        "hardhat": "^2.22.10"
+        "hardhat": "^2.22.10",
+        "postcss": "^8.5.8",
+        "tailwindcss": "^4.2.2"
     },
     "dependencies": {
         "@openzeppelin/contracts": "^5.0.2",
         "@openzeppelin/contracts-upgradeable": "^5.4.0",
-        "@openzeppelin/hardhat-upgrades": "^3.9.1"
+        "@openzeppelin/hardhat-upgrades": "^3.9.1",
+        "web3": "^4.16.0"
     }
 }

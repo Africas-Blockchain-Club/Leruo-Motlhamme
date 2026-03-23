@@ -41,5 +41,8 @@ Once compiled, the ABI is stored in `artifacts/contracts/CONTRACT_NAME.sol`. In 
 
 ### Deployed contract 
 
-https://sepolia.etherscan.io/address/0x1f9f77Cfb01Df1Ea8A4a2403EDef033f381E86E5#code
+https://sepolia.etherscan.io/address/0xBFF3814bc630B2fD1C1bbe2B1d5966154aB4C050#code
 
+### Completed the Dapp
+
+I am able to restock as well as buy cokes from the vending machine!

@@ -21,7 +21,7 @@ contract VendingMachine {
     }
 
     function purchase(uint amount) public payable {
-        require(msg.value >= amount * 2 ether, "You must pay at least 2 ETH per item");
+        require(msg.value >= amount * 0.000001 ether, "You must pay at least 2 ETH per item");
         require(cokeBalances[address(this)] >= amount, "Not enough items in stock to complete this purchase");
         cokeBalances[address(this)] -= amount;
         cokeBalances[msg.sender] += amount;

@@ -5,6 +5,70 @@
       "contracts/VendingMachine.sol:VendingMachine": {
         "src": "contracts\\VendingMachine.sol:4",
         "version": {
+          "withMetadata": "2a3efec2ff4fcf8b93784f134f0591d26e6992419c7ff1c05a9c3bfb54bae78e",
+          "withoutMetadata": "702de4aca926cbd85b3c80de603c4925caae95a672c128e28ae5893d1ed79ed4",
+          "linkedWithoutMetadata": "702de4aca926cbd85b3c80de603c4925caae95a672c128e28ae5893d1ed79ed4"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "getVendingMachineBalance()",
+          "restock(uint256)",
+          "purchase(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "VendingMachine",
+            "src": "contracts\\VendingMachine.sol:9"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "VendingMachine",
+              "src": "contracts\\VendingMachine.sol:6"
+            },
+            {
+              "label": "cokeBalances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "VendingMachine",
+              "src": "contracts\\VendingMachine.sol:7"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.22"
+      }
+    },
+    {
+      "contracts/VendingMachine.sol:VendingMachine": {
+        "src": "contracts\\VendingMachine.sol:4",
+        "version": {
           "withMetadata": "cb0d69dfbe40ecffcccc8b511bc812a4574f17057bd76208dfb0e99dbaa490e0",
           "withoutMetadata": "b4509561d4e83a5c97893022b6d9fed41d1275b7bea997941c5653f94c63e4ae",
           "linkedWithoutMetadata": "b4509561d4e83a5c97893022b6d9fed41d1275b7bea997941c5653f94c63e4ae"

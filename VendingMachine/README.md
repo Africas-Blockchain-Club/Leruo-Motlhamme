@@ -33,3 +33,8 @@ The ABI for the function would be the following:
 ```
 
 You then connect to a contract in either Ether.js or Web3.js using `ethers.Contract(CONTRACT_ADDRESS, ABI, signer)`.
+
+
+## Where can I find the ABI?
+
+Once compiled, the ABI is stored in `artifacts/contracts/CONTRACT_NAME.sol`. In here, you will find the JSON formed from compiling the contract.

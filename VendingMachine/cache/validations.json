@@ -1,0 +1,69 @@
+{
+  "version": "3.4",
+  "log": [
+    {
+      "contracts/VendingMachine.sol:VendingMachine": {
+        "src": "contracts\\VendingMachine.sol:4",
+        "version": {
+          "withMetadata": "cb0d69dfbe40ecffcccc8b511bc812a4574f17057bd76208dfb0e99dbaa490e0",
+          "withoutMetadata": "b4509561d4e83a5c97893022b6d9fed41d1275b7bea997941c5653f94c63e4ae",
+          "linkedWithoutMetadata": "b4509561d4e83a5c97893022b6d9fed41d1275b7bea997941c5653f94c63e4ae"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "getVendingMachineBalance()",
+          "restock(uint256)",
+          "purchase(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "VendingMachine",
+            "src": "contracts\\VendingMachine.sol:9"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "VendingMachine",
+              "src": "contracts\\VendingMachine.sol:6"
+            },
+            {
+              "label": "cokeBalances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "VendingMachine",
+              "src": "contracts\\VendingMachine.sol:7"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.22"
+      }
+    }
+  ]
+}

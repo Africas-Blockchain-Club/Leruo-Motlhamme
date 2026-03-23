@@ -1,0 +1,42 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\leruo\\Desktop\\ABC 2026\\MY ABC REPO\\Leruo-Motlhamme\\VendingMachine\\contracts\\VendingMachine.sol": {
+      "lastModificationDate": 1774281701455,
+      "contentHash": "72493e55c35d04ee5c3e8d082a85a98d",
+      "sourceName": "contracts/VendingMachine.sol",
+      "solcConfig": {
+        "version": "0.8.22",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.17"
+      ],
+      "artifacts": [
+        "VendingMachine"
+      ]
+    }
+  }
+}

@@ -39,3 +39,7 @@ server/
 
 frontend/                # All UI components and pages
 ```
+
+**Live site:** [https://lm-marketplace.netlify.app/](https://lm-marketplace.netlify.app/)
+
+A peer-to-peer stablecoin escrow marketplace built with React, Vite, ethers.js, and GSAP.

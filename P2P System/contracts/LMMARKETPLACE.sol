@@ -33,6 +33,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     // Events
     event OpenedListing(address indexed seller, uint256 amountOfSBC, uint TxID);
     event BuyerAccepted(address indexed buyer);
+    event BuyerPaid(address indexed buyer);
     event Confirmed(address indexed party);
     event ListingCompleted(address indexed seller, address indexed buyer, uint256 amountOfUSDC);
     event Refunded(address indexed seller, uint256 amount);
@@ -46,6 +47,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     modifier onlyBuyer(uint _TxID) {
+        require(CurrentTrades[_TxID].buyer != address(0), "Buyer is not initialized");
         require(CurrentTrades[_TxID].buyer == msg.sender, "You are not the buyer!");
         _;
     }
@@ -94,12 +96,24 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
     function acceptListing(uint256 _txId) public isOpenState(_txId) {
         Tx storage trade = CurrentTrades[_txId];
+
         require(msg.sender != trade.seller, "Seller cannot buy own USDC!");
+
         trade.state = TxState.ACCEPTED;
         trade.buyer = msg.sender;
 
         emit BuyerAccepted(msg.sender);
 
+    }
+
+    function setAsPaid(uint256 _txId) public onlyBuyer(_txId) {
+        Tx storage trade = CurrentTrades[_txId];
+
+        require(trade.state == TxState.ACCEPTED, "Accept the listing first");
+
+        trade.state = TxState.PAID;
+        
+        emit BuyerPaid(msg.sender);
     }
 
     function cancelListing(uint _TxID) public onlySeller(_TxID) isOpenState(_TxID) {

@@ -109,7 +109,7 @@ describe("LmMarketplace", function () {
 
         it("reverts on a non-existent listing", async function () {
             await expect(marketplace.connect(buyer).acceptListing(99))
-                .to.be.revertedWith("Listing is not open!");
+                .to.be.revertedWith("Listing does not exist!");
         });
     });
 

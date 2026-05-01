@@ -104,6 +104,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     function acceptListing(uint256 _txId) public isOpenState(_txId) {
         Tx storage trade = CurrentTrades[_txId];
 
+        require(trade.seller != address(0), "Listing does not exist!");
         require(msg.sender != trade.seller, "Seller cannot buy own USDC!");
 
         trade.state = TxState.ACCEPTED;
@@ -185,6 +186,5 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     // Upgrader
-    function _authorizeUpgrade(address newImplementation) internal override onlyOwner() {
-    }
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner() {}
 }

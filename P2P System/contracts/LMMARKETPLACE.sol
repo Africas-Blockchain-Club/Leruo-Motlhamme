@@ -116,6 +116,22 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         emit BuyerPaid(msg.sender);
     }
 
+    function confirmReceipt(uint256 _txId) public onlySeller(_txId) {
+        Tx storage trade = CurrentTrades[_txId];
+
+        require(trade.state == TxState.PAID, "Incorrect state!");
+
+        address buyer = trade.buyer;
+        address seller = trade.seller;
+        uint256 amount = trade.amountOfSBC;
+
+        delete CurrentTrades[_txId];
+
+        usdc.safeTransfer(buyer, amount);
+
+        emit ListingCompleted(seller, buyer, amount);
+    }
+
     function cancelListing(uint _TxID) public onlySeller(_TxID) isOpenState(_TxID) {
         Tx storage trade = CurrentTrades[_TxID];
         trade.state = TxState.REFUNDED;

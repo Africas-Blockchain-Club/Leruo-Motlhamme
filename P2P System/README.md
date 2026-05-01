@@ -2,6 +2,10 @@
 
 A decentralised peer-to-peer escrow platform that allows users to trade stablecoins (USDT/USDC) for fiat currency via off-chain bank transfers, with on-chain settlement handled by a smart contract.
 
+## Network
+
+This currently runs on Base Sepolia testnet using USDC - 0x036CbD53842c5426634e7929541eC2318f3dCF7e (token address)
+
 ## How It Works
 
 1. A seller posts an advert stating they want to sell a stablecoin amount — for example, 200 USDT at R15 per dollar.
@@ -42,4 +46,4 @@ frontend/                # All UI components and pages
 
 **Live site:** [https://lm-marketplace.netlify.app/](https://lm-marketplace.netlify.app/)
 
-A peer-to-peer stablecoin escrow marketplace built with React, Vite, ethers.js, and GSAP.
+A peer-to-peer stablecoin escrow marketplace that runs on Base Sepolia network using USDC - 0x036CbD53842c5426634e7929541eC2318f3dCF7e (Token Address)

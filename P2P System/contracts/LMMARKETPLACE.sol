@@ -10,10 +10,10 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     using SafeERC20 for IERC20;
 
-    // Storage variables 
-    IERC20 public usdt;
+    // Storage variables
     IERC20 public usdc;
     address public arbiter;
+    uint256 public _nextID;
     
     enum TxState {
         OPEN, PAID, CONFIRMING, COMPLETED, REFUNDED
@@ -21,10 +21,12 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     TxState public state;
 
     struct Tx {
+        uint256 txId;
         address seller;
         address buyer;
-        uint256 amountOfUSDT;
+        uint256 amountOfSBC;
         bool buyerPaid;
+        bool sellerConfirmed;
         TxState state;
     }
 
@@ -32,10 +34,11 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     mapping (uint => Tx) public CurrentTrades;
 
     // Events
-    event OpenedListing(address indexed seller, uint256 amountOfUSDT, uint TxID);
+    event OpenedListing(address indexed seller, uint256 amountOfSBC, uint TxID);
     event BuyerDeposited(address indexed buyer);
     event Confirmed(address indexed party);
-    event ListingCompleted(address indexed seller, address indexed buyer, uint256 amountOfUSDT);
+    event ListingCompleted(address indexed seller, address indexed buyer, uint256 amountOfUSDC);
+    event Refunded(address indexed seller, uint256 amount);
 
     uint256[50] private __gap;
 
@@ -55,20 +58,53 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         _;
     }
 
+    modifier isOpenState(uint _TxID) {
+        require(CurrentTrades[_TxID].state == TxState.OPEN, "Listing is not open!");
+        _;
+    }
+
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
-    function initialize(address _usdtAddress, address _usdcAddress) public initializer {
+    function initialize(address _usdcAddress) public initializer {
         __Ownable_init(msg.sender);
-        usdt = IERC20(_usdtAddress);
         usdc = IERC20(_usdcAddress);
         arbiter = msg.sender;
     }
 
     // Functions
+    function createListing(uint256 _amountOfSBC) public {
+        require(_amountOfSBC > 0, "Cannot list anything below 0");
+        require(usdc.allowance(msg.sender, address(this)) >= _amountOfSBC, "You have not given allowance");
+        require(usdc.balanceOf(msg.sender) >= _amountOfSBC, "You do not have enough USDC to sell!");
+        _nextID++;
+
+        CurrentTrades[_nextID] = Tx({
+            txId: _nextID,
+            seller: msg.sender,
+            buyer: address(0),
+            amountOfSBC: _amountOfSBC,
+            buyerPaid: false,
+            sellerConfirmed: false,
+            state: TxState.OPEN
+        });
+
+        usdc.safeTransferFrom(msg.sender, address(this), _amountOfSBC);
+
+        emit OpenedListing(msg.sender, _amountOfSBC, _nextID);
+    }
+
+    function refund(uint _TxID) public onlySeller(_TxID) isOpenState(_TxID) {
+        Tx storage trade = CurrentTrades[_TxID];
+        trade.state = TxState.REFUNDED;
+
+        usdc.safeTransfer(trade.seller, trade.amountOfSBC);
+
+        emit Refunded(trade.seller, trade.amountOfSBC);
+    }
 
     // Upgrader
     function _authorizeUpgrade(address newImplementation) internal override onlyOwner() {

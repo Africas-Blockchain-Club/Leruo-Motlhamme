@@ -1,7 +1,7 @@
 {
-    "name": "iteration_2_escrow",
+    "name": "P2P-System",
     "version": "1.0.0",
-    "description": "Escrow Smart Contract Assessment - WeThinkCode_",
+    "description": "Escrow Smart Contract for P2P System",
     "main": "index.js",
     "scripts": {
         "compile": "hardhat compile",

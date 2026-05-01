@@ -16,17 +16,14 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     uint256 public _nextID;
     
     enum TxState {
-        OPEN, PAID, CONFIRMING, COMPLETED, REFUNDED
+        OPEN, ACCEPTED, PAID, DISPUTED, COMPLETED, REFUNDED
     }
-    TxState public state;
 
     struct Tx {
         uint256 txId;
         address seller;
         address buyer;
         uint256 amountOfSBC;
-        bool buyerPaid;
-        bool sellerConfirmed;
         TxState state;
     }
 
@@ -35,7 +32,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
     // Events
     event OpenedListing(address indexed seller, uint256 amountOfSBC, uint TxID);
-    event BuyerDeposited(address indexed buyer);
+    event BuyerAccepted(address indexed buyer);
     event Confirmed(address indexed party);
     event ListingCompleted(address indexed seller, address indexed buyer, uint256 amountOfUSDC);
     event Refunded(address indexed seller, uint256 amount);
@@ -87,8 +84,6 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             seller: msg.sender,
             buyer: address(0),
             amountOfSBC: _amountOfSBC,
-            buyerPaid: false,
-            sellerConfirmed: false,
             state: TxState.OPEN
         });
 
@@ -97,7 +92,17 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         emit OpenedListing(msg.sender, _amountOfSBC, _nextID);
     }
 
-    function refund(uint _TxID) public onlySeller(_TxID) isOpenState(_TxID) {
+    function acceptListing(uint256 _txId) public isOpenState(_txId) {
+        Tx storage trade = CurrentTrades[_txId];
+        require(msg.sender != trade.seller, "Seller cannot buy own USDC!");
+        trade.state = TxState.ACCEPTED;
+        trade.buyer = msg.sender;
+
+        emit BuyerAccepted(msg.sender);
+
+    }
+
+    function cancelListing(uint _TxID) public onlySeller(_TxID) isOpenState(_TxID) {
         Tx storage trade = CurrentTrades[_TxID];
         trade.state = TxState.REFUNDED;
 

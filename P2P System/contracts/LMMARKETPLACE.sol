@@ -13,7 +13,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     // Storage variables
     IERC20 public usdc;
     address public arbiter;
-    uint256 public _nextID;
+    uint256 public nextID;
     
     enum TxState {
         OPEN, ACCEPTED, PAID, DISPUTED, COMPLETED, REFUNDED
@@ -28,27 +28,34 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     // Mappings
-    mapping (uint => Tx) public CurrentTrades;
+    mapping (uint256 => Tx) public CurrentTrades;
 
     // Events
-    event OpenedListing(address indexed seller, uint256 amountOfSBC, uint TxID);
+    event OpenedListing(address indexed seller, uint256 amountOfSBC, uint256 TxID);
     event BuyerAccepted(address indexed buyer);
     event BuyerPaid(address indexed buyer);
-    event Confirmed(address indexed party);
     event ListingCompleted(address indexed seller, address indexed buyer, uint256 amountOfUSDC);
+    event DisputeOpened(address indexed party);
+    event Resolved(address indexed arb, bool refundSeller);
     event Refunded(address indexed seller, uint256 amount);
 
     uint256[50] private __gap;
 
     // Modifiers
-    modifier onlySeller(uint _TxID) {
+    modifier onlySeller(uint256 _TxID) {
         require(CurrentTrades[_TxID].seller == msg.sender, "You are not the seller!");
         _;
     }
 
-    modifier onlyBuyer(uint _TxID) {
+    modifier onlyBuyer(uint256 _TxID) {
         require(CurrentTrades[_TxID].buyer != address(0), "Buyer is not initialized");
         require(CurrentTrades[_TxID].buyer == msg.sender, "You are not the buyer!");
+        _;
+    }
+
+    modifier onlyBuyerOrSeller(uint256 _TxID){
+        require(CurrentTrades[_TxID].buyer != address(0), "Buyer is not initialized");
+        require(CurrentTrades[_TxID].buyer == msg.sender || CurrentTrades[_TxID].seller == msg.sender,"Only the buyer or seller are allowed to call this!");
         _;
     }
 
@@ -57,7 +64,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         _;
     }
 
-    modifier isOpenState(uint _TxID) {
+    modifier isOpenState(uint256 _TxID) {
         require(CurrentTrades[_TxID].state == TxState.OPEN, "Listing is not open!");
         _;
     }
@@ -79,10 +86,10 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         require(_amountOfSBC > 0, "Cannot list anything below 0");
         require(usdc.allowance(msg.sender, address(this)) >= _amountOfSBC, "You have not given allowance");
         require(usdc.balanceOf(msg.sender) >= _amountOfSBC, "You do not have enough USDC to sell!");
-        _nextID++;
+        nextID++;
 
-        CurrentTrades[_nextID] = Tx({
-            txId: _nextID,
+        CurrentTrades[nextID] = Tx({
+            txId: nextID,
             seller: msg.sender,
             buyer: address(0),
             amountOfSBC: _amountOfSBC,
@@ -91,7 +98,7 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
         usdc.safeTransferFrom(msg.sender, address(this), _amountOfSBC);
 
-        emit OpenedListing(msg.sender, _amountOfSBC, _nextID);
+        emit OpenedListing(msg.sender, _amountOfSBC, nextID);
     }
 
     function acceptListing(uint256 _txId) public isOpenState(_txId) {
@@ -132,13 +139,49 @@ contract LmMarketplace is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         emit ListingCompleted(seller, buyer, amount);
     }
 
-    function cancelListing(uint _TxID) public onlySeller(_TxID) isOpenState(_TxID) {
+    function openDispute(uint256 _txId) public onlyBuyerOrSeller(_txId) {
+        Tx storage trade = CurrentTrades[_txId];
+
+        // Dispute will only happen once a buyer 'claims' they have paid
+        require(trade.state == TxState.PAID, "Incorrect state!");
+
+        trade.state = TxState.DISPUTED;
+
+        emit DisputeOpened(msg.sender);
+    }
+
+    function resolveDispute(uint256 _txId, bool refundSeller) public onlyArbiter() {
+        Tx storage trade = CurrentTrades[_txId];
+
+        require(trade.state == TxState.DISPUTED, "Incorrect state!");
+
+        address buyer = trade.buyer;
+        address seller = trade.seller;
+        uint256 amount = trade.amountOfSBC;
+
+        if (refundSeller == true){
+            usdc.safeTransfer(seller, amount);
+        }
+
+        if (refundSeller == false){
+            usdc.safeTransfer(buyer, amount);
+        }
+
+        delete CurrentTrades[_txId];
+
+        emit Resolved(arbiter, refundSeller);
+    }
+
+    function cancelListing(uint256 _TxID) public onlySeller(_TxID) isOpenState(_TxID) {
         Tx storage trade = CurrentTrades[_TxID];
-        trade.state = TxState.REFUNDED;
+        address seller = trade.seller;
+        uint256 amount = trade.amountOfSBC;
 
-        usdc.safeTransfer(trade.seller, trade.amountOfSBC);
+        usdc.safeTransfer(seller, amount);
 
-        emit Refunded(trade.seller, trade.amountOfSBC);
+        delete CurrentTrades[_TxID];
+
+        emit Refunded(seller, amount);
     }
 
     // Upgrader

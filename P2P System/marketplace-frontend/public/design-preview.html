@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LM-Marketplace — Design Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Inter, sans-serif; background: #111; color: #fff; }
+
+/* ─── HEADER ─── */
+.header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  background: #0a0a0a;
+  border-bottom: 1px solid #222;
+}
+.header h1 { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+.header h2 { font-size: 32px; font-weight: 700; color: #fff; }
+.header p { color: #555; margin-top: 8px; font-size: 15px; }
+
+/* ─── CONCEPT LABELS ─── */
+.concept-label {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: #0a0a0a;
+}
+.concept-label .num { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #555; margin-bottom: 6px; }
+.concept-label .title { font-size: 22px; font-weight: 700; }
+.concept-label .desc { font-size: 13px; color: #666; margin-top: 4px; }
+
+/* ─── DIVIDER ─── */
+.divider { height: 2px; background: #1a1a1a; margin: 0; }
+
+/* ════════════════════════════════════════════
+   CONCEPT 1 — THE VAULT (Dark Gold)
+════════════════════════════════════════════ */
+.c1 { background: #0A0A0F; padding: 0; }
+
+.c1-hero {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 60% 0%, rgba(245,197,24,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 100%, rgba(255,140,0,0.05) 0%, transparent 50%),
+              #0A0A0F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.c1-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,197,24,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,197,24,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.c1-loader {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F5C518, #FF8C00, transparent);
+  animation: loadBar 2s ease-in-out infinite;
+}
+
+@keyframes loadBar {
+  0% { transform: scaleX(0); transform-origin: left; }
+  50% { transform: scaleX(1); transform-origin: left; }
+  50.01% { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+
+.c1-emblem {
+  width: 72px; height: 72px;
+  border: 2px solid rgba(245,197,24,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+  background: rgba(245,197,24,0.05);
+  position: relative;
+}
+.c1-emblem::after {
+  content: '⬡';
+  font-size: 28px;
+  color: #F5C518;
+}
+
+.c1-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+.c1-hero h1 span {
+  background: linear-gradient(135deg, #F5C518, #FF8C00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.c1-hero .tagline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 12px;
+  text-align: center;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.c1-hero .sub {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(245,197,24,0.6);
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.c1-hero .sub::before, .c1-hero .sub::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: rgba(245,197,24,0.3);
+}
+
+.c1-buttons {
+  margin-top: 48px;
+  display: flex;
+  gap: 16px;
+}
+.btn-gold {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #F5C518, #FF8C00);
+  color: #0A0A0F;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-outline-gold {
+  padding: 14px 32px;
+  background: transparent;
+  color: #F5C518;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid rgba(245,197,24,0.4);
+  cursor: pointer;
+}
+
+.c1-steps {
+  display: flex;
+  gap: 0;
+  margin-top: 0;
+  background: #0A0A0F;
+  border-top: 1px solid rgba(245,197,24,0.1);
+}
+.c1-step {
+  flex: 1;
+  padding: 40px 32px;
+  border-right: 1px solid rgba(245,197,24,0.08);
+  position: relative;
+}
+.c1-step:last-child { border-right: none; }
+.c1-step-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(245,197,24,0.12);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.c1-step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: #F5C518;
+  margin-bottom: 8px;
+}
+.c1-step-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+}
+
+.c1-card {
+  background: rgba(245,197,24,0.03);
+  border: 1px solid rgba(245,197,24,0.12);
+  padding: 24px;
+  margin: 4px;
+}
+.c1-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.c1-badge {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #F5C518;
+  border: 1px solid rgba(245,197,24,0.3);
+  padding: 3px 8px;
+}
+.c1-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+}
+.c1-amount span { font-size: 14px; color: rgba(255,255,255,0.4); }
+.c1-zar { font-size: 13px; color: rgba(245,197,24,0.7); margin-top: 4px; }
+.c1-addr { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 12px; font-family: 'Space Mono', monospace; }
+.c1-txid { font-size: 10px; color: rgba(245,197,24,0.4); margin-top: 6px; font-family: 'Space Mono', monospace; }
+
+.c1-marketplace {
+  padding: 60px 40px;
+  background: #0A0A0F;
+}
+.c1-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.c1-section-sub { font-size: 12px; letter-spacing: 2px; color: rgba(245,197,24,0.5); text-transform: uppercase; margin-bottom: 32px; }
+.c1-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+
+/* ════════════════════════════════════════════
+   CONCEPT 2 — NEON MATRIX (Cyber)
+════════════════════════════════════════════ */
+.c2 { background: #050B1F; }
+
+.c2-hero {
+  min-height: 100vh;
+  background: #050B1F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.c2-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(0,212,255,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(0,128,255,0.06) 0%, transparent 50%);
+}
+.c2-scanline {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #00D4FF 20%, #00FFFF 50%, #00D4FF 80%, transparent 100%);
+  box-shadow: 0 0 20px #00D4FF, 0 0 40px rgba(0,212,255,0.5);
+  animation: scan 2.5s ease-in-out infinite;
+}
+@keyframes scan {
+  0% { opacity: 0; top: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; top: calc(100vh); }
+}
+
+.c2-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.c2-hex { color: rgba(0,212,255,0.15); font-size: 12px; font-family: 'Space Mono', monospace; position: absolute; top: 20px; left: 20px; line-height: 1.8; }
+
+.c2-hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  text-shadow: 0 0 60px rgba(0,212,255,0.3);
+}
+.c2-hero h1 span {
+  color: #00D4FF;
+  text-shadow: 0 0 20px #00D4FF, 0 0 40px rgba(0,212,255,0.5);
+}
+
+.c2-hero .tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: rgba(0,212,255,0.5);
+  margin-top: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.c2-line {
+  width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00D4FF, transparent);
+  margin-top: 32px;
+}
+
+.c2-status {
+  margin-top: 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: rgba(0,255,133,0.7);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.c2-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #00FF85;
+  box-shadow: 0 0 8px #00FF85;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+.c2-buttons {
+  margin-top: 48px;
+  display: flex;
+  gap: 16px;
+}
+.btn-cyber {
+  padding: 14px 32px;
+  background: transparent;
+  color: #00D4FF;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid #00D4FF;
+  cursor: pointer;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  box-shadow: 0 0 20px rgba(0,212,255,0.2), inset 0 0 20px rgba(0,212,255,0.05);
+}
+.btn-cyber-fill {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #00D4FF, #0080FF);
+  color: #050B1F;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  box-shadow: 0 0 30px rgba(0,212,255,0.4);
+}
+
+.c2-steps {
+  display: flex;
+  background: rgba(0,212,255,0.02);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+}
+.c2-step { flex: 1; padding: 40px 32px; border-right: 1px solid rgba(0,212,255,0.08); }
+.c2-step:last-child { border-right: none; }
+.c2-step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #00D4FF;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.c2-step-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.c2-step-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; font-family: 'Space Mono', monospace; }
+
+.c2-marketplace { padding: 60px 40px; background: #050B1F; }
+.c2-section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.c2-section-sub { font-family: 'Space Mono', monospace; font-size: 10px; color: rgba(0,212,255,0.5); letter-spacing: 2px; margin-bottom: 32px; }
+.c2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(0,212,255,0.08); }
+
+.c2-card {
+  background: #050B1F;
+  padding: 24px;
+  border: 1px solid rgba(0,212,255,0.1);
+  position: relative;
+}
+.c2-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, #00D4FF, transparent);
+}
+.c2-card-id { font-family: 'Space Mono', monospace; font-size: 10px; color: rgba(0,212,255,0.4); margin-bottom: 12px; }
+.c2-card-amount { font-family: 'Rajdhani', sans-serif; font-size: 32px; font-weight: 700; color: #00D4FF; line-height: 1; }
+.c2-card-amount span { font-size: 14px; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
+.c2-card-zar { font-size: 12px; color: rgba(0,255,133,0.7); margin-top: 4px; font-family: 'Space Mono', monospace; }
+.c2-card-addr { font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 16px; font-family: 'Space Mono', monospace; }
+.c2-card-btn {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(0,212,255,0.3);
+  color: #00D4FF;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+
+/* ════════════════════════════════════════════
+   CONCEPT 3 — CLEAN EXCHANGE (Pro Fintech)
+════════════════════════════════════════════ */
+.c3 { background: #0F172A; }
+
+.c3-hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #0F172A 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.c3-hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+  top: -100px; right: -100px;
+}
+.c3-hero::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+  bottom: -100px; left: 100px;
+}
+
+.c3-progress {
+  position: absolute;
+  top: 0; left: 0;
+  height: 3px;
+  width: 70%;
+  background: linear-gradient(90deg, #6366F1, #818CF8, #10B981);
+  border-radius: 0 2px 2px 0;
+}
+
+.c3-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.c3-nav-logo { font-weight: 700; font-size: 16px; color: #fff; letter-spacing: 1px; }
+.c3-nav-logo span { color: #818CF8; }
+.c3-nav-pill {
+  font-size: 11px;
+  color: #10B981;
+  border: 1px solid rgba(16,185,129,0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(16,185,129,0.05);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.c3-nav-pill::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
+.c3-badge-escrow {
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: #818CF8;
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.c3-hero h1 {
+  font-size: 72px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  letter-spacing: -2px;
+  line-height: 1;
+  position: relative;
+}
+.c3-hero h1 .accent { color: #818CF8; }
+
+.c3-hero .tagline {
+  font-size: 17px;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  margin-top: 16px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.c3-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 48px;
+}
+.c3-stat-num { font-size: 28px; font-weight: 700; color: #fff; }
+.c3-stat-num span { font-size: 16px; color: #818CF8; }
+.c3-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; letter-spacing: 1px; text-transform: uppercase; }
+
+.c3-divider-stats { width: 1px; background: rgba(255,255,255,0.08); }
+
+.c3-buttons {
+  margin-top: 48px;
+  display: flex;
+  gap: 12px;
+}
+.btn-indigo {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #6366F1, #818CF8);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+}
+.btn-outline-light {
+  padding: 14px 32px;
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.c3-steps {
+  display: flex;
+  background: rgba(15,23,42,0.8);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  gap: 0;
+}
+.c3-step { flex: 1; padding: 40px 32px; border-right: 1px solid rgba(255,255,255,0.06); }
+.c3-step:last-child { border-right: none; }
+.c3-step-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+.c3-step-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.c3-step-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+
+.c3-marketplace { padding: 60px 40px; background: #0F172A; }
+.c3-section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; }
+.c3-section-title { font-size: 24px; font-weight: 700; color: #fff; }
+.c3-section-count { font-size: 12px; color: rgba(99,102,241,0.7); background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.15); padding: 3px 12px; border-radius: 20px; }
+.c3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.c3-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+.c3-card-status {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #10B981;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.c3-card-amount { font-size: 30px; font-weight: 700; color: #fff; }
+.c3-card-amount span { font-size: 14px; color: rgba(255,255,255,0.4); }
+.c3-card-zar { font-size: 13px; color: #818CF8; margin-top: 4px; }
+.c3-card-sep { height: 1px; background: rgba(255,255,255,0.06); margin: 16px 0; }
+.c3-card-addr { font-size: 11px; color: rgba(255,255,255,0.25); font-family: 'Space Mono', monospace; }
+.c3-card-txid { font-size: 10px; color: rgba(99,102,241,0.4); margin-top: 4px; font-family: 'Space Mono', monospace; }
+.c3-card-btn {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #6366F1, #818CF8);
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="num">Design Exploration</div>
+  <h2>LM-MARKETPLACE — 3 Concepts</h2>
+  <p>Choose your preferred visual direction</p>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<div class="concept-label" style="background:#0A0A0F; border-top: 3px solid #F5C518;">
+  <div class="num" style="color:#F5C518;">Concept 01</div>
+  <div class="title" style="font-family:'Playfair Display',serif; color:#F5C518;">The Vault — Dark Gold Premium</div>
+  <div class="desc">Luxury bank aesthetic · Playfair Display · Gold gradients · Glass morphism</div>
+</div>
+
+<div class="c1">
+  <div class="c1-hero">
+    <div class="c1-loader"></div>
+    <div class="c1-grid-bg" style="position:absolute;inset:0;background-image:linear-gradient(rgba(245,197,24,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,0.03) 1px,transparent 1px);background-size:60px 60px;"></div>
+
+    <div class="c1-emblem"></div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:64px;font-weight:900;color:#fff;text-align:center;position:relative;">LM-<span style="background:linear-gradient(135deg,#F5C518,#FF8C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">MARKETPLACE</span></h1>
+    <div class="tagline" style="font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,0.4);margin-top:16px;text-align:center;max-width:520px;line-height:1.7;">An escrow-controlled peer-to-peer trading platform where every transaction is secured by smart contract arbitration.</div>
+    <div class="sub" style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,197,24,0.6);margin-top:28px;display:flex;align-items:center;gap:12px;">
+      <span style="display:block;width:40px;height:1px;background:rgba(245,197,24,0.3);"></span>
+      Escrow Protected
+      <span style="display:block;width:40px;height:1px;background:rgba(245,197,24,0.3);"></span>
+    </div>
+    <div class="c1-buttons">
+      <button class="btn-outline-gold">Connect Wallet</button>
+      <button class="btn-gold">Enter Marketplace</button>
+    </div>
+  </div>
+
+  <div class="c1-steps">
+    <div class="c1-step">
+      <div class="c1-step-num">01</div>
+      <div class="c1-step-title">Create a Listing</div>
+      <div class="c1-step-desc">Deposit your USDC into escrow. The smart contract holds funds securely until the trade completes.</div>
+    </div>
+    <div class="c1-step">
+      <div class="c1-step-num">02</div>
+      <div class="c1-step-title">Buyer Accepts</div>
+      <div class="c1-step-desc">A buyer locks in the listing, then transfers ZAR payment off-chain directly to the seller.</div>
+    </div>
+    <div class="c1-step">
+      <div class="c1-step-num">03</div>
+      <div class="c1-step-title">Funds Released</div>
+      <div class="c1-step-desc">Seller confirms receipt. USDC is released from escrow. Dispute resolution available at any stage.</div>
+    </div>
+  </div>
+
+  <div class="c1-marketplace">
+    <div class="c1-section-title">Active Listings</div>
+    <div class="c1-section-sub">Live on-chain</div>
+    <div class="c1-grid">
+      <div class="c1-card">
+        <div class="c1-card-header">
+          <div class="c1-badge">Open</div>
+          <div style="font-size:10px;color:rgba(245,197,24,0.3);font-family:'Space Mono',monospace;">#0001</div>
+        </div>
+        <div class="c1-amount">500 <span>USDC</span></div>
+        <div class="c1-zar">≈ R 9,420.00 ZAR</div>
+        <div class="c1-addr">0x4f2a...8c3d</div>
+        <div class="c1-txid">TxID: 1</div>
+        <button style="margin-top:16px;width:100%;padding:10px;background:linear-gradient(135deg,#F5C518,#FF8C00);color:#0A0A0F;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Accept Listing →</button>
+      </div>
+      <div class="c1-card">
+        <div class="c1-card-header">
+          <div class="c1-badge" style="color:rgba(255,140,0,0.8);border-color:rgba(255,140,0,0.3);">Accepted</div>
+          <div style="font-size:10px;color:rgba(245,197,24,0.3);font-family:'Space Mono',monospace;">#0002</div>
+        </div>
+        <div class="c1-amount">1,200 <span>USDC</span></div>
+        <div class="c1-zar">≈ R 22,608.00 ZAR</div>
+        <div class="c1-addr">0x9d1e...7a2f</div>
+        <div class="c1-txid">TxID: 2</div>
+        <button style="margin-top:16px;width:100%;padding:10px;background:transparent;color:rgba(245,197,24,0.4);font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(245,197,24,0.2);cursor:pointer;">Awaiting Payment</button>
+      </div>
+      <div class="c1-card">
+        <div class="c1-card-header">
+          <div class="c1-badge">Open</div>
+          <div style="font-size:10px;color:rgba(245,197,24,0.3);font-family:'Space Mono',monospace;">#0003</div>
+        </div>
+        <div class="c1-amount">250 <span>USDC</span></div>
+        <div class="c1-zar">≈ R 4,710.00 ZAR</div>
+        <div class="c1-addr">0x2c8f...1b5e</div>
+        <div class="c1-txid">TxID: 3</div>
+        <button style="margin-top:16px;width:100%;padding:10px;background:linear-gradient(135deg,#F5C518,#FF8C00);color:#0A0A0F;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Accept Listing →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="height:4px;background:#111;"></div>
+
+<!-- ══════════════════════════════════════════ -->
+<div class="concept-label" style="background:#050B1F; border-top: 3px solid #00D4FF;">
+  <div class="num" style="color:#00D4FF;">Concept 02</div>
+  <div class="title" style="font-family:'Rajdhani',sans-serif;letter-spacing:4px;text-transform:uppercase;color:#00D4FF;">NEON MATRIX — Cyber Dark</div>
+  <div class="desc" style="color:rgba(0,212,255,0.4);">DeFi-native aesthetic · Space Mono · Neon cyan · Terminal UI</div>
+</div>
+
+<div class="c2">
+  <div class="c2-hero">
+    <div class="c2-scanline"></div>
+    <div class="c2-grid-bg"></div>
+    <div class="c2-hex">01001100 01001101<br>00101101 01001101<br>01000001 01010010</div>
+
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:76px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:#fff;text-align:center;text-shadow:0 0 60px rgba(0,212,255,0.2);">LM-<span style="color:#00D4FF;text-shadow:0 0 20px #00D4FF,0 0 40px rgba(0,212,255,0.5);">MKT</span></h1>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(0,212,255,0.5);margin-top:12px;letter-spacing:3px;text-transform:uppercase;text-align:center;">// ESCROW_CONTROLLED P2P_EXCHANGE //</div>
+
+    <div class="c2-line"></div>
+
+    <div class="c2-status">
+      <div class="c2-dot"></div>
+      NETWORK_ACTIVE · SMART_CONTRACT_SECURED · ARBITRATED
+    </div>
+
+    <div class="c2-buttons">
+      <button class="btn-cyber">[ CONNECT_WALLET ]</button>
+      <button class="btn-cyber-fill">ACCESS_MARKET ▶</button>
+    </div>
+  </div>
+
+  <div class="c2-steps">
+    <div class="c2-step">
+      <div class="c2-step-num">// STEP_01</div>
+      <div class="c2-step-title">Create Listing</div>
+      <div class="c2-step-desc">Approve USDC, deposit into escrow contract. Listing becomes active on-chain.</div>
+    </div>
+    <div class="c2-step">
+      <div class="c2-step-num">// STEP_02</div>
+      <div class="c2-step-title">Buyer Locks In</div>
+      <div class="c2-step-desc">Buyer accepts listing on-chain, sends ZAR payment off-chain to seller's bank.</div>
+    </div>
+    <div class="c2-step">
+      <div class="c2-step-num">// STEP_03</div>
+      <div class="c2-step-title">Release Escrow</div>
+      <div class="c2-step-desc">Seller confirms receipt, USDC releases to buyer. Arbiter resolves disputes.</div>
+    </div>
+  </div>
+
+  <div class="c2-marketplace">
+    <div class="c2-section-title">Active Listings</div>
+    <div class="c2-section-sub">// on_chain · live_data</div>
+    <div class="c2-grid">
+      <div class="c2-card">
+        <div class="c2-card-id">TX_ID: 0x0001 · STATE: OPEN</div>
+        <div class="c2-card-amount">500 <span>USDC</span></div>
+        <div class="c2-card-zar">R 9,420.00 ZAR</div>
+        <div class="c2-card-addr">SELLER: 0x4f2a...8c3d</div>
+        <button class="c2-card-btn">[ ACCEPT_LISTING ] ▶</button>
+      </div>
+      <div class="c2-card">
+        <div class="c2-card-id">TX_ID: 0x0002 · STATE: ACCEPTED</div>
+        <div class="c2-card-amount" style="color:rgba(0,212,255,0.4);">1,200 <span>USDC</span></div>
+        <div class="c2-card-zar">R 22,608.00 ZAR</div>
+        <div class="c2-card-addr">SELLER: 0x9d1e...7a2f</div>
+        <button class="c2-card-btn" style="color:rgba(0,212,255,0.3);border-color:rgba(0,212,255,0.15);">[ AWAITING_PAYMENT ]</button>
+      </div>
+      <div class="c2-card">
+        <div class="c2-card-id">TX_ID: 0x0003 · STATE: OPEN</div>
+        <div class="c2-card-amount">250 <span>USDC</span></div>
+        <div class="c2-card-zar">R 4,710.00 ZAR</div>
+        <div class="c2-card-addr">SELLER: 0x2c8f...1b5e</div>
+        <button class="c2-card-btn">[ ACCEPT_LISTING ] ▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="height:4px;background:#111;"></div>
+
+<!-- ══════════════════════════════════════════ -->
+<div class="concept-label" style="background:#0F172A; border-top: 3px solid #6366F1;">
+  <div class="num" style="color:#818CF8;">Concept 03</div>
+  <div class="title" style="color:#818CF8;">Clean Exchange — Modern Fintech</div>
+  <div class="desc">Institutional-grade · Inter · Indigo/Emerald · Coinbase-meets-Bloomberg</div>
+</div>
+
+<div class="c3">
+  <div class="c3-hero">
+    <div class="c3-progress"></div>
+    <div class="c3-nav">
+      <div class="c3-nav-logo">LM<span>MARKET</span></div>
+      <div class="c3-nav-pill">Escrow Protected</div>
+    </div>
+
+    <div class="c3-badge-escrow">Smart Contract Escrow</div>
+    <h1 style="font-size:72px;font-weight:700;color:#fff;text-align:center;letter-spacing:-2px;line-height:1;">LM-<span class="accent" style="color:#818CF8;">MARKETPLACE</span></h1>
+    <div class="tagline" style="font-size:17px;color:rgba(255,255,255,0.4);text-align:center;margin-top:20px;max-width:500px;line-height:1.6;">A peer-to-peer USDC marketplace protected by on-chain escrow. Trade with confidence — every transaction is arbiter-secured.</div>
+
+    <div class="c3-stats">
+      <div>
+        <div class="c3-stat-num">R<span>18.84</span></div>
+        <div class="c3-stat-label">USD/ZAR Rate</div>
+      </div>
+      <div class="c3-divider-stats"></div>
+      <div>
+        <div class="c3-stat-num" style="color:#10B981;">12<span style="color:#10B981;font-size:14px;"> Active</span></div>
+        <div class="c3-stat-label">Live Listings</div>
+      </div>
+      <div class="c3-divider-stats"></div>
+      <div>
+        <div class="c3-stat-num">0<span style="font-size:14px;color:#818CF8;"> Disputes</span></div>
+        <div class="c3-stat-label">Open Disputes</div>
+      </div>
+    </div>
+
+    <div class="c3-buttons">
+      <button class="btn-outline-light">Connect Wallet</button>
+      <button class="btn-indigo">Enter Marketplace</button>
+    </div>
+  </div>
+
+  <div class="c3-steps">
+    <div class="c3-step">
+      <div class="c3-step-icon">📋</div>
+      <div class="c3-step-title">Create a Listing</div>
+      <div class="c3-step-desc">Enter your USDC amount. Approve & deposit into the escrow smart contract. Your listing goes live instantly.</div>
+    </div>
+    <div class="c3-step">
+      <div class="c3-step-icon">🤝</div>
+      <div class="c3-step-title">Buyer Accepts</div>
+      <div class="c3-step-desc">Buyer locks in on-chain and transfers ZAR directly to you. Mark as paid once received.</div>
+    </div>
+    <div class="c3-step">
+      <div class="c3-step-icon">✅</div>
+      <div class="c3-step-title">Confirm & Release</div>
+      <div class="c3-step-desc">Confirm ZAR receipt. USDC releases from escrow to buyer. Dispute? The arbiter resolves it fairly.</div>
+    </div>
+  </div>
+
+  <div class="c3-marketplace">
+    <div class="c3-section-header">
+      <div class="c3-section-title">Active Listings</div>
+      <div class="c3-section-count">12 listings</div>
+    </div>
+    <div class="c3-grid">
+      <div class="c3-card">
+        <div class="c3-card-status">Open</div>
+        <div class="c3-card-amount">500 <span>USDC</span></div>
+        <div class="c3-card-zar">≈ R 9,420.00 ZAR</div>
+        <div class="c3-card-sep"></div>
+        <div class="c3-card-addr">0x4f2a...8c3d</div>
+        <div class="c3-card-txid">TxID: 1</div>
+        <button class="c3-card-btn">Accept Listing</button>
+      </div>
+      <div class="c3-card">
+        <div class="c3-card-status" style="color:rgba(245,158,11,0.9);background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);">Accepted</div>
+        <div class="c3-card-amount">1,200 <span>USDC</span></div>
+        <div class="c3-card-zar">≈ R 22,608.00 ZAR</div>
+        <div class="c3-card-sep"></div>
+        <div class="c3-card-addr">0x9d1e...7a2f</div>
+        <div class="c3-card-txid">TxID: 2</div>
+        <button class="c3-card-btn" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);">Awaiting Payment</button>
+      </div>
+      <div class="c3-card">
+        <div class="c3-card-status">Open</div>
+        <div class="c3-card-amount">250 <span>USDC</span></div>
+        <div class="c3-card-zar">≈ R 4,710.00 ZAR</div>
+        <div class="c3-card-sep"></div>
+        <div class="c3-card-addr">0x2c8f...1b5e</div>
+        <div class="c3-card-txid">TxID: 3</div>
+        <button class="c3-card-btn">Accept Listing</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

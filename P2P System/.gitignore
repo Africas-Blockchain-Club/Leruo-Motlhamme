@@ -4,8 +4,6 @@ node_modules/
 cache/
 artifacts/
 metadata/
-CLAUDE.md
-.claude
 
 # Environment variables
 .env

@@ -4,7 +4,7 @@ async function main() {
     const [deployer] = await ethers.getSigners();
     console.log("Deploying with account:", deployer.address);
 
-    const usdcAddress = process.env.USDC_ADDRESS;
+    const usdcAddress = process.env.ETH_SEP_USDC_ADDRESS;
 
     console.log("Using USDC address:", usdcAddress);
 

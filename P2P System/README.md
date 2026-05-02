@@ -4,7 +4,7 @@ A decentralised peer-to-peer escrow platform that allows users to trade stableco
 
 ## Network
 
-This currently runs on Base Sepolia testnet using USDC - 0x036CbD53842c5426634e7929541eC2318f3dCF7e (token address)
+This currently runs on ETH Sepolia testnet using USDC - 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 (token address)
 
 ## How It Works
 
@@ -46,4 +46,4 @@ frontend/                # All UI components and pages
 
 **Live site:** [https://lm-marketplace.netlify.app/](https://lm-marketplace.netlify.app/)
 
-A peer-to-peer stablecoin escrow marketplace that runs on Base Sepolia network using USDC - 0x036CbD53842c5426634e7929541eC2318f3dCF7e (Token Address)
+A peer-to-peer stablecoin escrow marketplace that runs on ETH Sepolia network using USDC - 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 (Token Address)
